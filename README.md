@@ -1,10 +1,10 @@
-#Silicon Performance Predictor
+Silicon Performance Predictor
 
 This project provides a post-silicon characterization pipeline designed to model the relationship between Process, Voltage, and Temperature (PVT) and hardware performance metrics. Using synthetic data generation based on physical semiconductor models, the script trains a Machine Learning model to predict power consumption and maximum operating frequency ($F_{max}$).
 
 Technical Overview
 
-The script simulates characterization data for 1,200 silicon samples, modeling two primary hardware outputs:
+The script silicon_performance_predictor.py simulates characterization data for 1,200 silicon samples, modeling two primary hardware outputs:
 
 Power Consumption (power_w): Modeled as a function of dynamic power ($V^2$) and exponential leakage based on temperature and process corners.
 
@@ -22,7 +22,7 @@ Validation: Produces an engineering report visualization to verify model perform
 
 Data Schema
 
-The generated dataset (df) contains the following features:
+The generated dataset contains the following features:
 
 Feature
 
@@ -70,5 +70,6 @@ The script generates silicon_performance_report.png, which includes:
 Voltage vs. Power: A scatter plot showing the quadratic power scaling across different process corners.
 
 Actual vs. Predicted Fmax: A correlation plot to validate the model's accuracy in predicting silicon speed.
+
 ![Silicon Performance Graph](perfromance_graph.png)
 
