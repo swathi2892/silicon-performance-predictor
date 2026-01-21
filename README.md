@@ -43,7 +43,7 @@ python silicon_performance_predictor.py
 
 The script automatically generates a silicon_performance_report.png file, which includes:
 ## Performance Analysis
-![Silicon Performance Graph](performance_graph.png)
+![Silicon Performance Graph](perfromance_graph.png)
 
 Voltage vs. Power Analysis: A visualization of the power envelope across different process corners.
 
