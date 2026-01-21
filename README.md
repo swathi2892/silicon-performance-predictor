@@ -1,75 +1,88 @@
 Silicon Performance Predictor
 
-This project provides a post-silicon characterization pipeline designed to model the relationship between Process, Voltage, and Temperature (PVT) and hardware performance metrics. Using synthetic data generation based on physical semiconductor models, the script trains a Machine Learning model to predict power consumption and maximum operating frequency ($F_{max}$).
+A post-silicon characterization pipeline that models the relationship between Process, Voltage, and Temperature (PVT) and hardware performance metrics using Machine Learning.
 
-Technical Overview
+🚀 Overview
 
-The script silicon_performance_predictor.py simulates characterization data for 1,200 silicon samples, modeling two primary hardware outputs:
+The script simulates characterization data for silicon samples, modeling two primary hardware outputs based on semiconductor physics:
 
-Power Consumption (power_w): Modeled as a function of dynamic power ($V^2$) and exponential leakage based on temperature and process corners.
+Power Consumption ($P$): Modeled with dynamic ($V^2 \cdot f$) and exponential leakage components.
 
-Maximum Frequency (fmax_ghz): Modeled based on voltage scaling, process speed, and thermal throttling.
+Maximum Frequency ($F_{max}$): Modeled using voltage-dependent delay and thermal throttling.
 
-Features
+📊 Data Schema
 
-PVT Simulation: Generates data across Slow (0), Typical (1), and Fast (2) process corners.
-
-Physical Modeling: Accounts for leff_nm (Effective Channel Length) and junction temperature impacts.
-
-Machine Learning: Utilizes a RandomForestRegressor (150 estimators) for multi-output regression.
-
-Validation: Produces an engineering report visualization to verify model performance against physical truths.
-
-Data Schema
-
-The generated dataset contains the following features:
+The dataset generates features representative of modern 7nm-class nodes:
 
 Feature
 
 Description
 
+Range
+
 process_corner
 
-Manufacturing variation (0: Slow, 1: Typical, 2: Fast)
+Manufacturing variation
+
+0 (Slow), 1 (Typical), 2 (Fast)
 
 vdd_voltage
 
-Supply Voltage (0.65V - 1.2V)
+Supply Voltage
+
+0.65V to 1.2V
 
 temp_celsius
 
-Junction Temperature (-40°C to 125°C)
+Junction Temperature
+
+-40°C to 125°C
 
 leff_nm
 
-Effective Channel Length (centered at 7nm)
+Effective Channel Length
+
+$\mu=7.0$ nm
 
 power_w
 
-Target: Total Power (Watts)
+Output: Total Power
+
+Watts (W)
 
 fmax_ghz
 
-Target: Maximum Frequency (GHz)
+Output: Max Frequency
 
-Execution and Outputs
+GigaHertz (GHz)
 
-To run the pipeline, execute the script:
+🛠️ Usage
+
+Install Dependencies:
+
+pip install pandas numpy matplotlib seaborn scikit-learn
+
+
+Run the Pipeline:
 
 python silicon_performance_predictor.py
 
 
-1. Model Analytics
+📈 Methodology
 
-The script prints the $R^2$ Accuracy Score and Mean Absolute Error (MAE) to the console to evaluate the predictive quality of the Random Forest model.
+The project utilizes a RandomForestRegressor for multi-output regression. This allows the model to capture the non-linear interactions between temperature-induced leakage and voltage scaling simultaneously.
 
-2. Engineering Visualizations
+Model: Random Forest (150 estimators)
 
-The script generates silicon_performance_report.png, which includes:
+Validation: $R^2$ Score and Mean Absolute Error (MAE)
 
-Voltage vs. Power: A scatter plot showing the quadratic power scaling across different process corners.
-
-Actual vs. Predicted Fmax: A correlation plot to validate the model's accuracy in predicting silicon speed.
+Visualization: Generates silicon_performance_report.png showing the correlation between physical silicon traits and predicted performance.
 
 ![Silicon Performance Graph](perfromance_graph.png)
+
+
+📜 License
+
+This project is for educational and engineering simulation purposes.
+
 
